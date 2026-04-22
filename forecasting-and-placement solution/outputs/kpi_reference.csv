@@ -1,0 +1,7 @@
+kpi_name,formula_or_logic,business_use
+MAPE or WAPE,Forecast error metric,Accuracy
+Fill rate,Demand fulfilled / demand requested,Service level
+Stockout risk,Probability of no inventory,Availability
+Transfer cost,Inter-node transfer cost,Network efficiency
+Inventory turns,Annualized demand / average inventory,Working capital
+Placement adherence,Recommended vs actual stock positioning,Planning discipline

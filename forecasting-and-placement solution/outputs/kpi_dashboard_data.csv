@@ -1,0 +1,6 @@
+metric,baseline,recommended
+Forecast WAPE,0.5792,0.5464
+Fill Rate,0.8045,0.978
+Stockout Risk,0.0003,0.0
+Reactive Transfer Cost,483.92,49.84
+Avg Lead Days,2.33,1.7

@@ -1,0 +1,503 @@
+{
+  "network_kpis": {
+    "baseline_wape": 0.5792,
+    "selected_model_wape": 0.5464,
+    "fill_rate_baseline": 0.8045,
+    "fill_rate_recommended": 0.978,
+    "stockout_risk_baseline": 0.0003,
+    "stockout_risk_recommended": 0.0,
+    "reactive_transfer_cost_baseline": 483.92,
+    "reactive_transfer_cost_recommended": 49.84,
+    "avg_lead_days_baseline": 2.33,
+    "avg_lead_days_recommended": 1.7,
+    "placement_adherence_baseline": 0.6675,
+    "total_on_hand_units": 8926517.0,
+    "recommended_active_units": 3835.0,
+    "network_weeks_of_supply": 4655.4
+  },
+  "top_baseline_risks": [
+    {
+      "category": "Electronics",
+      "demand_region": "North",
+      "primary_node": "North",
+      "backup_node": "East",
+      "service_level": 0.9634,
+      "weekly_forecast_mean": 51.81,
+      "sigma_weekly": 57.37,
+      "target_inventory_units": 179.34,
+      "baseline_fill_rate": 0.9643,
+      "recommended_fill_rate": 1.0,
+      "baseline_stockout_risk": 0.0028,
+      "recommended_stockout_risk": 0.0,
+      "baseline_transfer_cost": 1.92,
+      "recommended_transfer_cost": 0.0,
+      "baseline_avg_ship_cost": 1.32,
+      "recommended_avg_ship_cost": 0.94,
+      "baseline_avg_lead_days": 2.67,
+      "recommended_avg_lead_days": 2.5
+    },
+    {
+      "category": "Toys",
+      "demand_region": "North",
+      "primary_node": "North",
+      "backup_node": "East",
+      "service_level": 0.971,
+      "weekly_forecast_mean": 47.02,
+      "sigma_weekly": 52.51,
+      "target_inventory_units": 167.0,
+      "baseline_fill_rate": 1.0,
+      "recommended_fill_rate": 1.0,
+      "baseline_stockout_risk": 0.0018,
+      "recommended_stockout_risk": 0.0,
+      "baseline_transfer_cost": 0.0,
+      "recommended_transfer_cost": 0.0,
+      "baseline_avg_ship_cost": 1.36,
+      "recommended_avg_ship_cost": 0.94,
+      "baseline_avg_lead_days": 2.64,
+      "recommended_avg_lead_days": 2.5
+    },
+    {
+      "category": "Toys",
+      "demand_region": "West",
+      "primary_node": "West",
+      "backup_node": "North",
+      "service_level": 0.971,
+      "weekly_forecast_mean": 43.46,
+      "sigma_weekly": 84.62,
+      "target_inventory_units": 188.51,
+      "baseline_fill_rate": 1.0,
+      "recommended_fill_rate": 1.0,
+      "baseline_stockout_risk": 0.001,
+      "recommended_stockout_risk": 0.0,
+      "baseline_transfer_cost": 0.0,
+      "recommended_transfer_cost": 0.0,
+      "baseline_avg_ship_cost": 1.01,
+      "recommended_avg_ship_cost": 0.64,
+      "baseline_avg_lead_days": 2.44,
+      "recommended_avg_lead_days": 1.5
+    },
+    {
+      "category": "Home",
+      "demand_region": "North",
+      "primary_node": "North",
+      "backup_node": "East",
+      "service_level": 0.964,
+      "weekly_forecast_mean": 50.91,
+      "sigma_weekly": 38.5,
+      "target_inventory_units": 152.83,
+      "baseline_fill_rate": 0.8688,
+      "recommended_fill_rate": 1.0,
+      "baseline_stockout_risk": 0.0002,
+      "recommended_stockout_risk": 0.0,
+      "baseline_transfer_cost": 6.95,
+      "recommended_transfer_cost": 0.0,
+      "baseline_avg_ship_cost": 1.35,
+      "recommended_avg_ship_cost": 0.94,
+      "baseline_avg_lead_days": 2.68,
+      "recommended_avg_lead_days": 2.5
+    },
+    {
+      "category": "Toys",
+      "demand_region": "South",
+      "primary_node": "Central",
+      "backup_node": "North",
+      "service_level": 0.971,
+      "weekly_forecast_mean": 42.05,
+      "sigma_weekly": 57.33,
+      "target_inventory_units": 152.94,
+      "baseline_fill_rate": 1.0,
+      "recommended_fill_rate": 1.0,
+      "baseline_stockout_risk": 0.0001,
+      "recommended_stockout_risk": 0.0,
+      "baseline_transfer_cost": 0.0,
+      "recommended_transfer_cost": 0.0,
+      "baseline_avg_ship_cost": 1.94,
+      "recommended_avg_ship_cost": 2.22,
+      "baseline_avg_lead_days": 2.18,
+      "recommended_avg_lead_days": 1.5
+    },
+    {
+      "category": "Beauty",
+      "demand_region": "West",
+      "primary_node": "West",
+      "backup_node": "North",
+      "service_level": 0.931,
+      "weekly_forecast_mean": 11.67,
+      "sigma_weekly": 23.4,
+      "target_inventory_units": 45.3,
+      "baseline_fill_rate": 1.0,
+      "recommended_fill_rate": 1.0,
+      "baseline_stockout_risk": 0.0001,
+      "recommended_stockout_risk": 0.0002,
+      "baseline_transfer_cost": 0.0,
+      "recommended_transfer_cost": 0.0,
+      "baseline_avg_ship_cost": 1.07,
+      "recommended_avg_ship_cost": 0.64,
+      "baseline_avg_lead_days": 1.98,
+      "recommended_avg_lead_days": 1.5
+    },
+    {
+      "category": "Beauty",
+      "demand_region": "North",
+      "primary_node": "North",
+      "backup_node": "East",
+      "service_level": 0.931,
+      "weekly_forecast_mean": 72.74,
+      "sigma_weekly": 1.0,
+      "target_inventory_units": 146.56,
+      "baseline_fill_rate": 0.6721,
+      "recommended_fill_rate": 0.9067,
+      "baseline_stockout_risk": 0.0,
+      "recommended_stockout_risk": 0.0,
+      "baseline_transfer_cost": 24.8,
+      "recommended_transfer_cost": 7.06,
+      "baseline_avg_ship_cost": 1.6,
+      "recommended_avg_ship_cost": 1.02,
+      "baseline_avg_lead_days": 2.39,
+      "recommended_avg_lead_days": 2.2
+    },
+    {
+      "category": "Beauty",
+      "demand_region": "East",
+      "primary_node": "Central",
+      "backup_node": "West",
+      "service_level": 0.931,
+      "weekly_forecast_mean": 57.64,
+      "sigma_weekly": 47.11,
+      "target_inventory_units": 159.51,
+      "baseline_fill_rate": 0.9438,
+      "recommended_fill_rate": 1.0,
+      "baseline_stockout_risk": 0.0,
+      "recommended_stockout_risk": 0.0,
+      "baseline_transfer_cost": 6.35,
+      "recommended_transfer_cost": 0.0,
+      "baseline_avg_ship_cost": 1.71,
+      "recommended_avg_ship_cost": 1.29,
+      "baseline_avg_lead_days": 1.91,
+      "recommended_avg_lead_days": 1.5
+    }
+  ],
+  "top_recommendations": [
+    {
+      "category": "Kitchen",
+      "warehouse_region": "West",
+      "demand_region": "West",
+      "allocation_units": 417.2,
+      "allocation_share": 0.9,
+      "target_inventory_units": 463.55
+    },
+    {
+      "category": "Home",
+      "warehouse_region": "West",
+      "demand_region": "West",
+      "allocation_units": 155.98,
+      "allocation_share": 0.85,
+      "target_inventory_units": 183.51
+    },
+    {
+      "category": "Kitchen",
+      "warehouse_region": "North",
+      "demand_region": "North",
+      "allocation_units": 151.03,
+      "allocation_share": 0.75,
+      "target_inventory_units": 201.38
+    },
+    {
+      "category": "Pet",
+      "warehouse_region": "Central",
+      "demand_region": "South",
+      "allocation_units": 144.14,
+      "allocation_share": 0.75,
+      "target_inventory_units": 192.19
+    },
+    {
+      "category": "Toys",
+      "warehouse_region": "West",
+      "demand_region": "West",
+      "allocation_units": 141.38,
+      "allocation_share": 0.75,
+      "target_inventory_units": 188.51
+    },
+    {
+      "category": "Pet",
+      "warehouse_region": "North",
+      "demand_region": "North",
+      "allocation_units": 135.27,
+      "allocation_share": 0.75,
+      "target_inventory_units": 180.36
+    },
+    {
+      "category": "Electronics",
+      "warehouse_region": "North",
+      "demand_region": "North",
+      "allocation_units": 134.51,
+      "allocation_share": 0.75,
+      "target_inventory_units": 179.34
+    },
+    {
+      "category": "Beauty",
+      "warehouse_region": "North",
+      "demand_region": "North",
+      "allocation_units": 131.9,
+      "allocation_share": 0.9,
+      "target_inventory_units": 146.56
+    },
+    {
+      "category": "Home",
+      "warehouse_region": "Central",
+      "demand_region": "East",
+      "allocation_units": 126.8,
+      "allocation_share": 0.85,
+      "target_inventory_units": 149.18
+    },
+    {
+      "category": "Toys",
+      "warehouse_region": "North",
+      "demand_region": "North",
+      "allocation_units": 125.25,
+      "allocation_share": 0.75,
+      "target_inventory_units": 167.0
+    },
+    {
+      "category": "Pet",
+      "warehouse_region": "Central",
+      "demand_region": "East",
+      "allocation_units": 120.33,
+      "allocation_share": 0.75,
+      "target_inventory_units": 160.44
+    },
+    {
+      "category": "Beauty",
+      "warehouse_region": "Central",
+      "demand_region": "East",
+      "allocation_units": 119.63,
+      "allocation_share": 0.75,
+      "target_inventory_units": 159.51
+    },
+    {
+      "category": "Electronics",
+      "warehouse_region": "Central",
+      "demand_region": "East",
+      "allocation_units": 117.82,
+      "allocation_share": 0.75,
+      "target_inventory_units": 157.1
+    },
+    {
+      "category": "Toys",
+      "warehouse_region": "Central",
+      "demand_region": "South",
+      "allocation_units": 114.7,
+      "allocation_share": 0.75,
+      "target_inventory_units": 152.94
+    },
+    {
+      "category": "Home",
+      "warehouse_region": "North",
+      "demand_region": "North",
+      "allocation_units": 114.62,
+      "allocation_share": 0.75,
+      "target_inventory_units": 152.83
+    },
+    {
+      "category": "Electronics",
+      "warehouse_region": "Central",
+      "demand_region": "South",
+      "allocation_units": 108.39,
+      "allocation_share": 0.75,
+      "target_inventory_units": 144.52
+    },
+    {
+      "category": "Pet",
+      "warehouse_region": "West",
+      "demand_region": "West",
+      "allocation_units": 100.66,
+      "allocation_share": 0.75,
+      "target_inventory_units": 134.22
+    },
+    {
+      "category": "Electronics",
+      "warehouse_region": "West",
+      "demand_region": "West",
+      "allocation_units": 98.04,
+      "allocation_share": 0.75,
+      "target_inventory_units": 130.72
+    },
+    {
+      "category": "Toys",
+      "warehouse_region": "Central",
+      "demand_region": "East",
+      "allocation_units": 97.36,
+      "allocation_share": 0.75,
+      "target_inventory_units": 129.82
+    },
+    {
+      "category": "Kitchen",
+      "warehouse_region": "Central",
+      "demand_region": "East",
+      "allocation_units": 97.15,
+      "allocation_share": 0.75,
+      "target_inventory_units": 129.54
+    }
+  ],
+  "region_forecast_chart_data": [
+    {
+      "week_start": "2026-01-19",
+      "region": "East",
+      "forecast_units": 352.25
+    },
+    {
+      "week_start": "2026-01-19",
+      "region": "North",
+      "forecast_units": 372.08
+    },
+    {
+      "week_start": "2026-01-19",
+      "region": "South",
+      "forecast_units": 242.75
+    },
+    {
+      "week_start": "2026-01-19",
+      "region": "West",
+      "forecast_units": 410.33000000000004
+    },
+    {
+      "week_start": "2026-01-26",
+      "region": "East",
+      "forecast_units": 333.56
+    },
+    {
+      "week_start": "2026-01-26",
+      "region": "North",
+      "forecast_units": 329.16
+    },
+    {
+      "week_start": "2026-01-26",
+      "region": "South",
+      "forecast_units": 239.44
+    },
+    {
+      "week_start": "2026-01-26",
+      "region": "West",
+      "forecast_units": 456.0
+    },
+    {
+      "week_start": "2026-02-02",
+      "region": "South",
+      "forecast_units": 252.55
+    },
+    {
+      "week_start": "2026-02-02",
+      "region": "West",
+      "forecast_units": 434.29
+    },
+    {
+      "week_start": "2026-02-02",
+      "region": "East",
+      "forecast_units": 339.96
+    },
+    {
+      "week_start": "2026-02-02",
+      "region": "North",
+      "forecast_units": 315.83
+    },
+    {
+      "week_start": "2026-02-09",
+      "region": "East",
+      "forecast_units": 326.69
+    },
+    {
+      "week_start": "2026-02-09",
+      "region": "North",
+      "forecast_units": 346.03000000000003
+    },
+    {
+      "week_start": "2026-02-09",
+      "region": "South",
+      "forecast_units": 273.69
+    },
+    {
+      "week_start": "2026-02-09",
+      "region": "West",
+      "forecast_units": 454.28
+    },
+    {
+      "week_start": "2026-02-16",
+      "region": "East",
+      "forecast_units": 338.11
+    },
+    {
+      "week_start": "2026-02-16",
+      "region": "North",
+      "forecast_units": 450.03
+    },
+    {
+      "week_start": "2026-02-16",
+      "region": "South",
+      "forecast_units": 283.54
+    },
+    {
+      "week_start": "2026-02-16",
+      "region": "West",
+      "forecast_units": 441.66
+    },
+    {
+      "week_start": "2026-02-23",
+      "region": "South",
+      "forecast_units": 271.09000000000003
+    },
+    {
+      "week_start": "2026-02-23",
+      "region": "East",
+      "forecast_units": 334.59
+    },
+    {
+      "week_start": "2026-02-23",
+      "region": "North",
+      "forecast_units": 437.32
+    },
+    {
+      "week_start": "2026-02-23",
+      "region": "West",
+      "forecast_units": 459.73
+    }
+  ],
+  "kpi_dashboard_data": [
+    {
+      "metric": "Forecast WAPE",
+      "baseline": 0.5792,
+      "recommended": 0.5464
+    },
+    {
+      "metric": "Fill Rate",
+      "baseline": 0.8045,
+      "recommended": 0.978
+    },
+    {
+      "metric": "Stockout Risk",
+      "baseline": 0.0003,
+      "recommended": 0.0
+    },
+    {
+      "metric": "Reactive Transfer Cost",
+      "baseline": 483.92,
+      "recommended": 49.84
+    },
+    {
+      "metric": "Avg Lead Days",
+      "baseline": 2.33,
+      "recommended": 1.7
+    }
+  ],
+  "model_summary": [
+    {
+      "model": "moving_average",
+      "wape": 0.5792045206506212,
+      "mape": 0.7392891054878205
+    },
+    {
+      "model": "selected_policy",
+      "wape": 0.5463536784056274,
+      "mape": 0.6976399404486942
+    }
+  ]
+}
