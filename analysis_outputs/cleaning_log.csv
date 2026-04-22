@@ -1,0 +1,6 @@
+sheet,issue_fixed,before_rows,after_rows,id_updates
+Daily Demand,Parsed dates and replaced corrupted weekend_flag values using the calendar date,5000,5000,
+Event Calendar,"Collapsed duplicate dates to one calendar row per day, inferred weekend_flag, and averaged weather_disruption_index",5000,562,
+Starting Inventory,Canonicalized warehouse_id values to the IDs defined in the Warehouses sheet,5000,5000,4000.0
+Warehouse Region Costs,Canonicalized warehouse_id values to the IDs defined in the Warehouses sheet,5000,5000,4000.0
+Weekly Demand,Normalized week values to the Monday week start,5000,5000,

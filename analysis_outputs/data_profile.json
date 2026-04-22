@@ -1,0 +1,1384 @@
+{
+  "overview": {
+    "daily_rows": 5000,
+    "unique_skus": 5000,
+    "unique_regions": 4,
+    "date_range": "2024-07-01 to 2026-01-16",
+    "total_units": 219212,
+    "total_revenue": 27316800.169999998,
+    "avg_price": 125.134534,
+    "weather_correlation": 0.006051487521715115
+  },
+  "quality_summary": [
+    {
+      "check": "Daily Demand weekend_flag distinct values",
+      "before": 209.0,
+      "after": 2.0,
+      "status": "fixed"
+    },
+    {
+      "check": "Event Calendar rows",
+      "before": 5000.0,
+      "after": 562.0,
+      "status": "deduplicated"
+    },
+    {
+      "check": "Starting Inventory warehouse match rate",
+      "before": 0.2,
+      "after": 1.0,
+      "status": "fixed"
+    },
+    {
+      "check": "Warehouse Region Costs warehouse match rate",
+      "before": 0.2,
+      "after": 1.0,
+      "status": "fixed"
+    },
+    {
+      "check": "Weekly Demand distinct week values",
+      "before": 176.0,
+      "after": 70.0,
+      "status": "normalized"
+    }
+  ],
+  "sheet_profiles": {
+    "Warehouses": {
+      "rows": 5000,
+      "columns": 4,
+      "duplicate_rows": 0,
+      "total_missing_cells": 0,
+      "columns_profile": [
+        {
+          "column": "warehouse_id",
+          "dtype": "str",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 5000,
+          "top_values": [
+            {
+              "value": "WH-N100000",
+              "count": 1
+            },
+            {
+              "value": "WH-S100001",
+              "count": 1
+            },
+            {
+              "value": "WH-E100002",
+              "count": 1
+            },
+            {
+              "value": "WH-W100003",
+              "count": 1
+            },
+            {
+              "value": "WH-C100004",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "column": "warehouse_region",
+          "dtype": "str",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 5,
+          "top_values": [
+            {
+              "value": "North",
+              "count": 1000
+            },
+            {
+              "value": "South",
+              "count": 1000
+            },
+            {
+              "value": "East",
+              "count": 1000
+            },
+            {
+              "value": "West",
+              "count": 1000
+            },
+            {
+              "value": "Central",
+              "count": 1000
+            }
+          ]
+        },
+        {
+          "column": "capacity_units",
+          "dtype": "int64",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 5,
+          "min": 110000,
+          "p25": 115000.0,
+          "median": 118000.0,
+          "mean": 128600.0,
+          "p75": 120000.0,
+          "max": 180000,
+          "std": 25922.46891943311
+        },
+        {
+          "column": "fixed_daily_cost_usd",
+          "dtype": "int64",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 5,
+          "min": 1680,
+          "p25": 1700.0,
+          "median": 1750.0,
+          "mean": 1906.0,
+          "p75": 1800.0,
+          "max": 2600,
+          "std": 349.52601288993833
+        }
+      ],
+      "sample_rows": [
+        {
+          "warehouse_id": "WH-N100000",
+          "warehouse_region": "North",
+          "capacity_units": 120000,
+          "fixed_daily_cost_usd": 1800
+        },
+        {
+          "warehouse_id": "WH-S100001",
+          "warehouse_region": "South",
+          "capacity_units": 115000,
+          "fixed_daily_cost_usd": 1700
+        },
+        {
+          "warehouse_id": "WH-E100002",
+          "warehouse_region": "East",
+          "capacity_units": 118000,
+          "fixed_daily_cost_usd": 1750
+        },
+        {
+          "warehouse_id": "WH-W100003",
+          "warehouse_region": "West",
+          "capacity_units": 110000,
+          "fixed_daily_cost_usd": 1680
+        },
+        {
+          "warehouse_id": "WH-C100004",
+          "warehouse_region": "Central",
+          "capacity_units": 180000,
+          "fixed_daily_cost_usd": 2600
+        }
+      ]
+    },
+    "SKU Master": {
+      "rows": 5000,
+      "columns": 6,
+      "duplicate_rows": 0,
+      "total_missing_cells": 0,
+      "columns_profile": [
+        {
+          "column": "sku_id",
+          "dtype": "str",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 5000,
+          "top_values": [
+            {
+              "value": "SKU-100000",
+              "count": 1
+            },
+            {
+              "value": "SKU-100001",
+              "count": 1
+            },
+            {
+              "value": "SKU-100002",
+              "count": 1
+            },
+            {
+              "value": "SKU-100003",
+              "count": 1
+            },
+            {
+              "value": "SKU-100004",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "column": "category",
+          "dtype": "str",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 6,
+          "top_values": [
+            {
+              "value": "Electronics",
+              "count": 1667
+            },
+            {
+              "value": "Toys",
+              "count": 834
+            },
+            {
+              "value": "Kitchen",
+              "count": 834
+            },
+            {
+              "value": "Pet",
+              "count": 832
+            },
+            {
+              "value": "Home",
+              "count": 555
+            }
+          ]
+        },
+        {
+          "column": "unit_cost_usd",
+          "dtype": "float64",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 18,
+          "min": 14.98,
+          "p25": 39.01,
+          "median": 57.94,
+          "mean": 66.822162,
+          "p75": 96.37,
+          "max": 119.39,
+          "std": 34.06372564571775
+        },
+        {
+          "column": "selling_price_usd",
+          "dtype": "float64",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 18,
+          "min": 32.87,
+          "p25": 86.74,
+          "median": 132.365,
+          "mean": 128.122982,
+          "p75": 175.66,
+          "max": 198.29,
+          "std": 54.295797892115225
+        },
+        {
+          "column": "cube_ft",
+          "dtype": "float64",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 18,
+          "min": 0.08,
+          "p25": 0.29,
+          "median": 0.58,
+          "mean": 0.612008,
+          "p75": 0.76,
+          "max": 1.79,
+          "std": 0.43188113202412504
+        },
+        {
+          "column": "target_service_level",
+          "dtype": "float64",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 15,
+          "min": 0.931,
+          "p25": 0.952,
+          "median": 0.968,
+          "mean": 0.9629903999999999,
+          "p75": 0.975,
+          "max": 0.987,
+          "std": 0.01718672116830033
+        }
+      ],
+      "sample_rows": [
+        {
+          "sku_id": "SKU-100000",
+          "category": "Electronics",
+          "unit_cost_usd": 50.98,
+          "selling_price_usd": 190.65,
+          "cube_ft": 0.55,
+          "target_service_level": 0.959
+        },
+        {
+          "sku_id": "SKU-100001",
+          "category": "Toys",
+          "unit_cost_usd": 14.98,
+          "selling_price_usd": 175.66,
+          "cube_ft": 1.79,
+          "target_service_level": 0.972
+        },
+        {
+          "sku_id": "SKU-100002",
+          "category": "Toys",
+          "unit_cost_usd": 22.32,
+          "selling_price_usd": 198.29,
+          "cube_ft": 0.86,
+          "target_service_level": 0.968
+        },
+        {
+          "sku_id": "SKU-100003",
+          "category": "Beauty",
+          "unit_cost_usd": 61.85,
+          "selling_price_usd": 78.7,
+          "cube_ft": 0.76,
+          "target_service_level": 0.931
+        },
+        {
+          "sku_id": "SKU-100004",
+          "category": "Electronics",
+          "unit_cost_usd": 112.48,
+          "selling_price_usd": 134.55,
+          "cube_ft": 0.33,
+          "target_service_level": 0.966
+        }
+      ]
+    },
+    "Daily Demand": {
+      "rows": 5000,
+      "columns": 11,
+      "duplicate_rows": 0,
+      "total_missing_cells": 0,
+      "columns_profile": [
+        {
+          "column": "date",
+          "dtype": "datetime64[us]",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 540,
+          "min": "2024-07-01",
+          "max": "2026-01-16"
+        },
+        {
+          "column": "sku_id",
+          "dtype": "str",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 5000,
+          "top_values": [
+            {
+              "value": "SKU-100023",
+              "count": 1
+            },
+            {
+              "value": "SKU-100043",
+              "count": 1
+            },
+            {
+              "value": "SKU-100179",
+              "count": 1
+            },
+            {
+              "value": "SKU-100132",
+              "count": 1
+            },
+            {
+              "value": "SKU-100213",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "column": "region",
+          "dtype": "str",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 4,
+          "top_values": [
+            {
+              "value": "East",
+              "count": 1286
+            },
+            {
+              "value": "South",
+              "count": 1250
+            },
+            {
+              "value": "West",
+              "count": 1248
+            },
+            {
+              "value": "North",
+              "count": 1216
+            }
+          ]
+        },
+        {
+          "column": "units_ordered",
+          "dtype": "int64",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 85,
+          "min": 13,
+          "p25": 32.0,
+          "median": 42.0,
+          "mean": 43.8424,
+          "p75": 54.0,
+          "max": 114,
+          "std": 14.904079594450359
+        },
+        {
+          "column": "price_usd",
+          "dtype": "float64",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 3965,
+          "min": 30.24,
+          "p25": 85.31,
+          "median": 130.48000000000002,
+          "mean": 125.134534,
+          "p75": 171.35000000000002,
+          "max": 204.04,
+          "std": 53.17692552173765
+        },
+        {
+          "column": "holiday_peak_flag",
+          "dtype": "int64",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 2,
+          "min": 0,
+          "p25": 0.0,
+          "median": 0.0,
+          "mean": 0.1626,
+          "p75": 0.0,
+          "max": 1,
+          "std": 0.3690372307715566
+        },
+        {
+          "column": "prime_event_flag",
+          "dtype": "int64",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 2,
+          "min": 0,
+          "p25": 0.0,
+          "median": 0.0,
+          "mean": 0.0912,
+          "p75": 0.0,
+          "max": 1,
+          "std": 0.28792210722340444
+        },
+        {
+          "column": "weekend_flag",
+          "dtype": "int64",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 2,
+          "min": 0,
+          "p25": 0.0,
+          "median": 0.0,
+          "mean": 0.2796,
+          "p75": 1.0,
+          "max": 1,
+          "std": 0.4488475607893679
+        },
+        {
+          "column": "marketing_push_flag",
+          "dtype": "int64",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 2,
+          "min": 0,
+          "p25": 0.0,
+          "median": 0.0,
+          "mean": 0.0474,
+          "p75": 0.0,
+          "max": 1,
+          "std": 0.21251417000871003
+        },
+        {
+          "column": "weather_disruption_index",
+          "dtype": "float64",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 232,
+          "min": -3.5,
+          "p25": -0.47,
+          "median": 0.14,
+          "mean": 0.151508,
+          "p75": 0.8625,
+          "max": 3.32,
+          "std": 1.0047668770572835
+        },
+        {
+          "column": "weekend_flag_raw",
+          "dtype": "str",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 209,
+          "top_values": [
+            {
+              "value": "1970-01-01",
+              "count": 24
+            },
+            {
+              "value": "1970-01-02",
+              "count": 24
+            },
+            {
+              "value": "1970-01-08",
+              "count": 24
+            },
+            {
+              "value": "1970-01-06",
+              "count": 24
+            },
+            {
+              "value": "1970-01-09",
+              "count": 24
+            }
+          ]
+        }
+      ],
+      "sample_rows": [
+        {
+          "date": "2024-07-01",
+          "sku_id": "SKU-100023",
+          "region": "West",
+          "units_ordered": 31,
+          "price_usd": 106.42,
+          "holiday_peak_flag": 0,
+          "prime_event_flag": 1,
+          "weekend_flag": 0,
+          "marketing_push_flag": 0,
+          "weather_disruption_index": -0.85,
+          "weekend_flag_raw": "1970-01-01"
+        },
+        {
+          "date": "2024-07-05",
+          "sku_id": "SKU-100043",
+          "region": "East",
+          "units_ordered": 33,
+          "price_usd": 188.31,
+          "holiday_peak_flag": 0,
+          "prime_event_flag": 1,
+          "weekend_flag": 0,
+          "marketing_push_flag": 0,
+          "weather_disruption_index": 0.39,
+          "weekend_flag_raw": "1970-01-02"
+        },
+        {
+          "date": "2024-07-12",
+          "sku_id": "SKU-100179",
+          "region": "West",
+          "units_ordered": 43,
+          "price_usd": 82.5,
+          "holiday_peak_flag": 0,
+          "prime_event_flag": 1,
+          "weekend_flag": 0,
+          "marketing_push_flag": 0,
+          "weather_disruption_index": -0.31,
+          "weekend_flag_raw": "1970-01-08"
+        },
+        {
+          "date": "2024-07-13",
+          "sku_id": "SKU-100132",
+          "region": "West",
+          "units_ordered": 35,
+          "price_usd": 185.56,
+          "holiday_peak_flag": 0,
+          "prime_event_flag": 1,
+          "weekend_flag": 1,
+          "marketing_push_flag": 0,
+          "weather_disruption_index": -0.29,
+          "weekend_flag_raw": "1970-01-06"
+        },
+        {
+          "date": "2024-07-14",
+          "sku_id": "SKU-100213",
+          "region": "East",
+          "units_ordered": 59,
+          "price_usd": 185.41,
+          "holiday_peak_flag": 0,
+          "prime_event_flag": 1,
+          "weekend_flag": 1,
+          "marketing_push_flag": 0,
+          "weather_disruption_index": 0.31,
+          "weekend_flag_raw": "1970-01-09"
+        }
+      ]
+    },
+    "Event Calendar": {
+      "rows": 562,
+      "columns": 7,
+      "duplicate_rows": 0,
+      "total_missing_cells": 0,
+      "columns_profile": [
+        {
+          "column": "date",
+          "dtype": "datetime64[us]",
+          "non_null_count": 562,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 562,
+          "min": "2024-07-01",
+          "max": "2026-01-13"
+        },
+        {
+          "column": "holiday_peak_flag",
+          "dtype": "int64",
+          "non_null_count": 562,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 2,
+          "min": 0,
+          "p25": 0.0,
+          "median": 0.0,
+          "mean": 0.4626334519572954,
+          "p75": 1.0,
+          "max": 1,
+          "std": 0.4990459748468863
+        },
+        {
+          "column": "prime_event_flag",
+          "dtype": "int64",
+          "non_null_count": 562,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 2,
+          "min": 0,
+          "p25": 0.0,
+          "median": 0.0,
+          "mean": 0.40747330960854095,
+          "p75": 1.0,
+          "max": 1,
+          "std": 0.49180197618384147
+        },
+        {
+          "column": "marketing_push_flag",
+          "dtype": "int64",
+          "non_null_count": 562,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 2,
+          "min": 0,
+          "p25": 0.0,
+          "median": 0.0,
+          "mean": 0.27402135231316727,
+          "p75": 1.0,
+          "max": 1,
+          "std": 0.4464171325428248
+        },
+        {
+          "column": "weather_disruption_index",
+          "dtype": "float64",
+          "non_null_count": 562,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 536,
+          "min": -2.39,
+          "p25": -0.09,
+          "median": 0.14166666666666666,
+          "mean": 0.13181809560546215,
+          "p75": 0.37855519480519484,
+          "max": 3.32,
+          "std": 0.4727946245568253
+        },
+        {
+          "column": "source_rows_collapsed",
+          "dtype": "int64",
+          "non_null_count": 562,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 14,
+          "min": 1,
+          "p25": 5.0,
+          "median": 10.0,
+          "mean": 8.896797153024911,
+          "p75": 14.0,
+          "max": 14,
+          "std": 4.434915396258478
+        },
+        {
+          "column": "weekend_flag",
+          "dtype": "int64",
+          "non_null_count": 562,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 2,
+          "min": 0,
+          "p25": 0.0,
+          "median": 0.0,
+          "mean": 0.2846975088967972,
+          "p75": 1.0,
+          "max": 1,
+          "std": 0.4516722712319674
+        }
+      ],
+      "sample_rows": [
+        {
+          "date": "2024-07-01",
+          "holiday_peak_flag": 0,
+          "prime_event_flag": 1,
+          "marketing_push_flag": 0,
+          "weather_disruption_index": -0.85,
+          "source_rows_collapsed": 1,
+          "weekend_flag": 0
+        },
+        {
+          "date": "2024-07-02",
+          "holiday_peak_flag": 0,
+          "prime_event_flag": 1,
+          "marketing_push_flag": 0,
+          "weather_disruption_index": -1.1,
+          "source_rows_collapsed": 1,
+          "weekend_flag": 0
+        },
+        {
+          "date": "2024-07-03",
+          "holiday_peak_flag": 0,
+          "prime_event_flag": 1,
+          "marketing_push_flag": 0,
+          "weather_disruption_index": 1.09,
+          "source_rows_collapsed": 1,
+          "weekend_flag": 0
+        },
+        {
+          "date": "2024-07-04",
+          "holiday_peak_flag": 0,
+          "prime_event_flag": 1,
+          "marketing_push_flag": 0,
+          "weather_disruption_index": 0.39,
+          "source_rows_collapsed": 1,
+          "weekend_flag": 0
+        },
+        {
+          "date": "2024-07-05",
+          "holiday_peak_flag": 0,
+          "prime_event_flag": 1,
+          "marketing_push_flag": 0,
+          "weather_disruption_index": -0.31,
+          "source_rows_collapsed": 1,
+          "weekend_flag": 0
+        }
+      ]
+    },
+    "Starting Inventory": {
+      "rows": 5000,
+      "columns": 4,
+      "duplicate_rows": 0,
+      "total_missing_cells": 0,
+      "columns_profile": [
+        {
+          "column": "warehouse_id",
+          "dtype": "str",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 5000,
+          "top_values": [
+            {
+              "value": "WH-N100000",
+              "count": 1
+            },
+            {
+              "value": "WH-S100001",
+              "count": 1
+            },
+            {
+              "value": "WH-E100002",
+              "count": 1
+            },
+            {
+              "value": "WH-W100003",
+              "count": 1
+            },
+            {
+              "value": "WH-C100004",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "column": "warehouse_id_raw",
+          "dtype": "str",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 5000,
+          "top_values": [
+            {
+              "value": "WH-N100000",
+              "count": 1
+            },
+            {
+              "value": "WH-N100001",
+              "count": 1
+            },
+            {
+              "value": "WH-N100002",
+              "count": 1
+            },
+            {
+              "value": "WH-N100003",
+              "count": 1
+            },
+            {
+              "value": "WH-N100004",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "column": "sku_id",
+          "dtype": "str",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 5000,
+          "top_values": [
+            {
+              "value": "SKU-100000",
+              "count": 1
+            },
+            {
+              "value": "SKU-100001",
+              "count": 1
+            },
+            {
+              "value": "SKU-100002",
+              "count": 1
+            },
+            {
+              "value": "SKU-100003",
+              "count": 1
+            },
+            {
+              "value": "SKU-100004",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "column": "starting_inventory_units",
+          "dtype": "int64",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 90,
+          "min": 510,
+          "p25": 1068.0,
+          "median": 1875.0,
+          "mean": 1785.3034,
+          "p75": 2488.0,
+          "max": 2959,
+          "std": 772.3984018669908
+        }
+      ],
+      "sample_rows": [
+        {
+          "warehouse_id": "WH-N100000",
+          "warehouse_id_raw": "WH-N100000",
+          "sku_id": "SKU-100000",
+          "starting_inventory_units": 2115
+        },
+        {
+          "warehouse_id": "WH-S100001",
+          "warehouse_id_raw": "WH-N100001",
+          "sku_id": "SKU-100001",
+          "starting_inventory_units": 2210
+        },
+        {
+          "warehouse_id": "WH-E100002",
+          "warehouse_id_raw": "WH-N100002",
+          "sku_id": "SKU-100002",
+          "starting_inventory_units": 2006
+        },
+        {
+          "warehouse_id": "WH-W100003",
+          "warehouse_id_raw": "WH-N100003",
+          "sku_id": "SKU-100003",
+          "starting_inventory_units": 2669
+        },
+        {
+          "warehouse_id": "WH-C100004",
+          "warehouse_id_raw": "WH-N100004",
+          "sku_id": "SKU-100004",
+          "starting_inventory_units": 2483
+        }
+      ]
+    },
+    "Warehouse Region Costs": {
+      "rows": 5000,
+      "columns": 5,
+      "duplicate_rows": 0,
+      "total_missing_cells": 0,
+      "columns_profile": [
+        {
+          "column": "warehouse_id",
+          "dtype": "str",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 5000,
+          "top_values": [
+            {
+              "value": "WH-N100000",
+              "count": 1
+            },
+            {
+              "value": "WH-S100001",
+              "count": 1
+            },
+            {
+              "value": "WH-E100002",
+              "count": 1
+            },
+            {
+              "value": "WH-W100003",
+              "count": 1
+            },
+            {
+              "value": "WH-C100004",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "column": "warehouse_id_raw",
+          "dtype": "str",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 5000,
+          "top_values": [
+            {
+              "value": "WH-N100000",
+              "count": 1
+            },
+            {
+              "value": "WH-N100001",
+              "count": 1
+            },
+            {
+              "value": "WH-N100002",
+              "count": 1
+            },
+            {
+              "value": "WH-N100003",
+              "count": 1
+            },
+            {
+              "value": "WH-S100004",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "column": "demand_region",
+          "dtype": "str",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 4,
+          "top_values": [
+            {
+              "value": "North",
+              "count": 1250
+            },
+            {
+              "value": "South",
+              "count": 1250
+            },
+            {
+              "value": "East",
+              "count": 1250
+            },
+            {
+              "value": "West",
+              "count": 1250
+            }
+          ]
+        },
+        {
+          "column": "ship_cost_per_unit_usd",
+          "dtype": "float64",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 18,
+          "min": 0.52,
+          "p25": 1.0550000000000002,
+          "median": 1.41,
+          "mean": 1.52,
+          "p75": 2.3525,
+          "max": 2.7,
+          "std": 0.7099090041398487
+        },
+        {
+          "column": "lead_time_days",
+          "dtype": "int64",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 4,
+          "min": 1,
+          "p25": 1.75,
+          "median": 2.0,
+          "mean": 2.3,
+          "p75": 3.0,
+          "max": 4,
+          "std": 1.0050880759456267
+        }
+      ],
+      "sample_rows": [
+        {
+          "warehouse_id": "WH-N100000",
+          "warehouse_id_raw": "WH-N100000",
+          "demand_region": "North",
+          "ship_cost_per_unit_usd": 1.08,
+          "lead_time_days": 2
+        },
+        {
+          "warehouse_id": "WH-S100001",
+          "warehouse_id_raw": "WH-N100001",
+          "demand_region": "South",
+          "ship_cost_per_unit_usd": 2.7,
+          "lead_time_days": 2
+        },
+        {
+          "warehouse_id": "WH-E100002",
+          "warehouse_id_raw": "WH-N100002",
+          "demand_region": "East",
+          "ship_cost_per_unit_usd": 1.09,
+          "lead_time_days": 3
+        },
+        {
+          "warehouse_id": "WH-W100003",
+          "warehouse_id_raw": "WH-N100003",
+          "demand_region": "West",
+          "ship_cost_per_unit_usd": 0.63,
+          "lead_time_days": 1
+        },
+        {
+          "warehouse_id": "WH-C100004",
+          "warehouse_id_raw": "WH-S100004",
+          "demand_region": "North",
+          "ship_cost_per_unit_usd": 1.43,
+          "lead_time_days": 3
+        }
+      ]
+    },
+    "Weekly Demand": {
+      "rows": 5000,
+      "columns": 5,
+      "duplicate_rows": 0,
+      "total_missing_cells": 0,
+      "columns_profile": [
+        {
+          "column": "week",
+          "dtype": "datetime64[us]",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 70,
+          "min": "2024-07-01",
+          "max": "2025-12-01"
+        },
+        {
+          "column": "sku_id",
+          "dtype": "str",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 5000,
+          "top_values": [
+            {
+              "value": "SKU-100000",
+              "count": 1
+            },
+            {
+              "value": "SKU-100001",
+              "count": 1
+            },
+            {
+              "value": "SKU-100002",
+              "count": 1
+            },
+            {
+              "value": "SKU-100003",
+              "count": 1
+            },
+            {
+              "value": "SKU-100004",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "column": "region",
+          "dtype": "str",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 4,
+          "top_values": [
+            {
+              "value": "East",
+              "count": 1250
+            },
+            {
+              "value": "North",
+              "count": 1250
+            },
+            {
+              "value": "South",
+              "count": 1250
+            },
+            {
+              "value": "West",
+              "count": 1250
+            }
+          ]
+        },
+        {
+          "column": "units_ordered",
+          "dtype": "int64",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 428,
+          "min": 16,
+          "p25": 221.0,
+          "median": 291.0,
+          "mean": 294.3362,
+          "p75": 362.0,
+          "max": 590,
+          "std": 93.16329668667755
+        },
+        {
+          "column": "week_raw",
+          "dtype": "datetime64[us]",
+          "non_null_count": 5000,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 176,
+          "min": "2024-07-01",
+          "max": "2025-12-05"
+        }
+      ],
+      "sample_rows": [
+        {
+          "week": "2024-07-01",
+          "sku_id": "SKU-100000",
+          "region": "East",
+          "units_ordered": 255,
+          "week_raw": "2024-07-01"
+        },
+        {
+          "week": "2024-07-01",
+          "sku_id": "SKU-100001",
+          "region": "North",
+          "units_ordered": 247,
+          "week_raw": "2024-07-01"
+        },
+        {
+          "week": "2024-07-01",
+          "sku_id": "SKU-100002",
+          "region": "South",
+          "units_ordered": 212,
+          "week_raw": "2024-07-01"
+        },
+        {
+          "week": "2024-07-01",
+          "sku_id": "SKU-100003",
+          "region": "West",
+          "units_ordered": 231,
+          "week_raw": "2024-07-01"
+        },
+        {
+          "week": "2024-07-01",
+          "sku_id": "SKU-100004",
+          "region": "East",
+          "units_ordered": 468,
+          "week_raw": "2024-07-01"
+        }
+      ]
+    },
+    "Index": {
+      "rows": 7,
+      "columns": 5,
+      "duplicate_rows": 0,
+      "total_missing_cells": 0,
+      "columns_profile": [
+        {
+          "column": "Sheet",
+          "dtype": "str",
+          "non_null_count": 7,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 7,
+          "top_values": [
+            {
+              "value": "Daily Demand",
+              "count": 1
+            },
+            {
+              "value": "Event Calendar",
+              "count": 1
+            },
+            {
+              "value": "SKU Master",
+              "count": 1
+            },
+            {
+              "value": "Starting Inventory",
+              "count": 1
+            },
+            {
+              "value": "Warehouse Region Costs",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "column": "Source File",
+          "dtype": "str",
+          "non_null_count": 7,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 7,
+          "top_values": [
+            {
+              "value": "daily_demand.csv",
+              "count": 1
+            },
+            {
+              "value": "event_calendar.csv",
+              "count": 1
+            },
+            {
+              "value": "sku_master.csv",
+              "count": 1
+            },
+            {
+              "value": "starting_inventory_snapshot.csv",
+              "count": 1
+            },
+            {
+              "value": "warehouse_region_costs.csv",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "column": "Rows",
+          "dtype": "int64",
+          "non_null_count": 7,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 2,
+          "min": 562,
+          "p25": 5000.0,
+          "median": 5000.0,
+          "mean": 4366.0,
+          "p75": 5000.0,
+          "max": 5000,
+          "std": 1677.4063312149503
+        },
+        {
+          "column": "Columns",
+          "dtype": "int64",
+          "non_null_count": 7,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 5,
+          "min": 4,
+          "p25": 4.5,
+          "median": 5.0,
+          "mean": 6.0,
+          "p75": 6.5,
+          "max": 11,
+          "std": 2.449489742783178
+        },
+        {
+          "column": "Cleaning Notes",
+          "dtype": "str",
+          "non_null_count": 7,
+          "null_count": 0,
+          "null_pct": 0.0,
+          "unique_count": 5,
+          "top_values": [
+            {
+              "value": "Trimmed text and preserved schema",
+              "count": 2
+            },
+            {
+              "value": "Canonicalized warehouse_id values to the IDs defined in the Warehouses sheet",
+              "count": 2
+            },
+            {
+              "value": "Parsed dates and replaced corrupted weekend_flag values using the calendar date",
+              "count": 1
+            },
+            {
+              "value": "Collapsed duplicate dates to one calendar row per day, inferred weekend_flag, and averaged weather_disruption_index",
+              "count": 1
+            },
+            {
+              "value": "Normalized week values to the Monday week start",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "sample_rows": [
+        {
+          "Sheet": "Daily Demand",
+          "Source File": "daily_demand.csv",
+          "Rows": 5000,
+          "Columns": 11,
+          "Cleaning Notes": "Parsed dates and replaced corrupted weekend_flag values using the calendar date"
+        },
+        {
+          "Sheet": "Event Calendar",
+          "Source File": "event_calendar.csv",
+          "Rows": 562,
+          "Columns": 7,
+          "Cleaning Notes": "Collapsed duplicate dates to one calendar row per day, inferred weekend_flag, and averaged weather_disruption_index"
+        },
+        {
+          "Sheet": "SKU Master",
+          "Source File": "sku_master.csv",
+          "Rows": 5000,
+          "Columns": 6,
+          "Cleaning Notes": "Trimmed text and preserved schema"
+        },
+        {
+          "Sheet": "Starting Inventory",
+          "Source File": "starting_inventory_snapshot.csv",
+          "Rows": 5000,
+          "Columns": 4,
+          "Cleaning Notes": "Canonicalized warehouse_id values to the IDs defined in the Warehouses sheet"
+        },
+        {
+          "Sheet": "Warehouse Region Costs",
+          "Source File": "warehouse_region_costs.csv",
+          "Rows": 5000,
+          "Columns": 5,
+          "Cleaning Notes": "Canonicalized warehouse_id values to the IDs defined in the Warehouses sheet"
+        }
+      ]
+    }
+  }
+}

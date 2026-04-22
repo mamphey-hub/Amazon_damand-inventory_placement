@@ -1,0 +1,8 @@
+Sheet,Source File,Rows,Columns,Cleaning Notes
+Daily Demand,daily_demand.csv,5000,11,Parsed dates and replaced corrupted weekend_flag values using the calendar date
+Event Calendar,event_calendar.csv,562,7,"Collapsed duplicate dates to one calendar row per day, inferred weekend_flag, and averaged weather_disruption_index"
+SKU Master,sku_master.csv,5000,6,Trimmed text and preserved schema
+Starting Inventory,starting_inventory_snapshot.csv,5000,4,Canonicalized warehouse_id values to the IDs defined in the Warehouses sheet
+Warehouse Region Costs,warehouse_region_costs.csv,5000,5,Canonicalized warehouse_id values to the IDs defined in the Warehouses sheet
+Warehouses,warehouses.csv,5000,4,Trimmed text and preserved schema
+Weekly Demand,weekly_demand_aggregated.csv,5000,5,Normalized week values to the Monday week start

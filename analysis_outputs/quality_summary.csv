@@ -1,0 +1,6 @@
+check,before,after,status
+Daily Demand weekend_flag distinct values,209.0,2.0,fixed
+Event Calendar rows,5000.0,562.0,deduplicated
+Starting Inventory warehouse match rate,0.2,1.0,fixed
+Warehouse Region Costs warehouse match rate,0.2,1.0,fixed
+Weekly Demand distinct week values,176.0,70.0,normalized
