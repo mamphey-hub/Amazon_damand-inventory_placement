@@ -94,6 +94,15 @@ function setTitle(sheet, title, subtitle) {
   };
 }
 
+function sumBy(items, keyFn, valueFn) {
+  const map = new Map();
+  for (const item of items) {
+    const key = keyFn(item);
+    map.set(key, (map.get(key) ?? 0) + valueFn(item));
+  }
+  return map;
+}
+
 async function main() {
   const summary = JSON.parse(await fs.readFile(path.join(OUTPUT_DIR, "solution_summary.json"), "utf8"));
   const benchmark = parseCsv(await fs.readFile(path.join(OUTPUT_DIR, "model_benchmark.csv"), "utf8"));
@@ -101,6 +110,66 @@ async function main() {
   const scenarios = parseCsv(await fs.readFile(path.join(OUTPUT_DIR, "placement_scenarios.csv"), "utf8"));
   const inventory = parseCsv(await fs.readFile(path.join(OUTPUT_DIR, "inventory_implications.csv"), "utf8"));
   const kpis = parseCsv(await fs.readFile(path.join(OUTPUT_DIR, "kpi_reference.csv"), "utf8"));
+
+  const fillImprovementByRegion = [...sumBy(
+    scenarios,
+    (row) => row.demand_region,
+    (row) => row.recommended_fill_rate - row.baseline_fill_rate,
+  )]
+    .map(([region, fill_gain]) => ({ region, fill_gain }))
+    .sort((a, b) => b.fill_gain - a.fill_gain);
+
+  const transferByCategory = [...sumBy(
+    scenarios,
+    (row) => row.category,
+    (row) => row.baseline_transfer_cost - row.recommended_transfer_cost,
+  )]
+    .map(([category, transfer_savings]) => ({ category, transfer_savings }))
+    .sort((a, b) => b.transfer_savings - a.transfer_savings);
+
+  const modelMix = [...sumBy(
+    benchmark,
+    (row) => row.best_model,
+    () => 1,
+  )]
+    .map(([model, combos]) => ({ model, combos }))
+    .sort((a, b) => b.combos - a.combos);
+
+  const benchmarkByCategory = [...sumBy(
+    benchmark,
+    (row) => row.category,
+    (row) => row.best_model === "regression" ? row.regression_wape : row.baseline_wape,
+  )]
+    .map(([category, totalWape]) => {
+      const count = benchmark.filter((row) => row.category === category).length;
+      return { category, selected_wape: totalWape / Math.max(count, 1) };
+    })
+    .sort((a, b) => b.selected_wape - a.selected_wape);
+
+  const leadByRegion = scenarios
+    .map((row) => ({
+      demand_region: row.demand_region,
+      baseline_avg_lead_days: row.baseline_avg_lead_days,
+      recommended_avg_lead_days: row.recommended_avg_lead_days,
+    }))
+    .sort((a, b) => b.baseline_avg_lead_days - a.baseline_avg_lead_days);
+
+  const riskSegments = scenarios
+    .map((row) => ({
+      label: `${row.category}-${row.demand_region}`,
+      baseline_stockout_risk: row.baseline_stockout_risk,
+      recommended_stockout_risk: row.recommended_stockout_risk,
+    }))
+    .sort((a, b) => b.baseline_stockout_risk - a.baseline_stockout_risk)
+    .slice(0, 8);
+
+  const surplusByNode = [...sumBy(
+    inventory,
+    (row) => row.warehouse_region,
+    (row) => row.inventory_surplus_vs_target,
+  )]
+    .map(([warehouse_region, surplus_units]) => ({ warehouse_region, surplus_units }))
+    .sort((a, b) => b.surplus_units - a.surplus_units);
 
   const workbook = Workbook.create();
   const dashboard = workbook.worksheets.add("Dashboard");
@@ -198,6 +267,30 @@ async function main() {
   kpiChart.barOptions.grouping = "clustered";
   kpiChart.xAxis = { axisType: "textAxis" };
 
+  dashboard.getRange("R2:S6").values = [
+    ["Region", "Fill Gain"],
+    ...fillImprovementByRegion.map((row) => [row.region, row.fill_gain]),
+  ];
+  const fillChart = dashboard.charts.add("bar", dashboard.getRange("R2:S6"));
+  fillChart.setPosition("Q2", "X18");
+  fillChart.title = "Fill-Rate Improvement by Region";
+  fillChart.hasLegend = false;
+  fillChart.barOptions.direction = "column";
+  fillChart.xAxis = { axisType: "textAxis" };
+  fillChart.yAxis = { numberFormatCode: "0.0%" };
+
+  dashboard.getRange("R20:S26").values = [
+    ["Category", "Transfer Savings"],
+    ...transferByCategory.map((row) => [row.category, row.transfer_savings]),
+  ];
+  const transferChart = dashboard.charts.add("bar", dashboard.getRange("R20:S26"));
+  transferChart.setPosition("Q20", "X36");
+  transferChart.title = "Transfer-Cost Savings by Category";
+  transferChart.hasLegend = false;
+  transferChart.barOptions.direction = "column";
+  transferChart.xAxis = { axisType: "textAxis" };
+  transferChart.yAxis = { numberFormatCode: "$#,##0" };
+
   setTitle(
     benchmarkSheet,
     "Model Benchmark",
@@ -231,6 +324,27 @@ async function main() {
   benchmarkSheet.getRange("A4:H28").format.wrapText = true;
   benchmarkSheet.freezePanes.freezeRows(4);
   benchmarkSheet.tables.add(`A4:H${benchmarkMatrix.length + 3}`, true, "BenchmarkTable");
+  benchmarkSheet.getRange("J4:K6").values = [
+    ["Model", "Winning Combos"],
+    ...modelMix.map((row) => [row.model, row.combos]),
+  ];
+  formatSubheader(benchmarkSheet.getRange("J4:K4"));
+  const modelMixChart = benchmarkSheet.charts.add("doughnut", benchmarkSheet.getRange("J4:K6"));
+  modelMixChart.setPosition("J8", "P22");
+  modelMixChart.title = "Winning Model Mix";
+  modelMixChart.hasLegend = true;
+  benchmarkSheet.getRange("J24:K30").values = [
+    ["Category", "Selected WAPE"],
+    ...benchmarkByCategory.map((row) => [row.category, row.selected_wape]),
+  ];
+  formatSubheader(benchmarkSheet.getRange("J24:K24"));
+  const benchmarkCategoryChart = benchmarkSheet.charts.add("bar", benchmarkSheet.getRange("J24:K30"));
+  benchmarkCategoryChart.setPosition("J32", "P48");
+  benchmarkCategoryChart.title = "Selected WAPE by Category";
+  benchmarkCategoryChart.hasLegend = false;
+  benchmarkCategoryChart.barOptions.direction = "column";
+  benchmarkCategoryChart.xAxis = { axisType: "textAxis" };
+  benchmarkCategoryChart.yAxis = { numberFormatCode: "0.0%" };
 
   setTitle(
     forecastSheet,
@@ -255,6 +369,31 @@ async function main() {
   forecastSheet.getRange(`H5:H${forecastMatrix.length + 3}`).format.numberFormat = "0.0%";
   forecastSheet.freezePanes.freezeRows(4);
   forecastSheet.tables.add(`A4:H${forecastMatrix.length + 3}`, true, "ForecastTable");
+  forecastSheet.getRange("J4:N10").values = [
+    ["Week", "East", "North", "South", "West"],
+    ...(() => {
+      const grouped = new Map();
+      for (const row of summary.region_forecast_chart_data) {
+        const existing = grouped.get(row.week_start) ?? { Week: row.week_start };
+        existing[row.region] = row.forecast_units;
+        grouped.set(row.week_start, existing);
+      }
+      return [...grouped.values()].map((row) => [
+        row.Week,
+        row.East ?? 0,
+        row.North ?? 0,
+        row.South ?? 0,
+        row.West ?? 0,
+      ]);
+    })(),
+  ];
+  formatSubheader(forecastSheet.getRange("J4:N4"));
+  const regionForecastChart = forecastSheet.charts.add("line", forecastSheet.getRange("J4:N10"));
+  regionForecastChart.setPosition("J12", "S30");
+  regionForecastChart.title = "Regional Forecast Trajectory";
+  regionForecastChart.hasLegend = true;
+  regionForecastChart.xAxis = { axisType: "textAxis" };
+  regionForecastChart.yAxis = { numberFormatCode: "0" };
 
   setTitle(
     placementSheet,
@@ -303,6 +442,40 @@ async function main() {
   });
   placementSheet.freezePanes.freezeRows(4);
   placementSheet.tables.add(`A4:M${placementMatrix.length + 3}`, true, "PlacementTable");
+  placementSheet.getRange(`O4:Q${leadByRegion.length + 4}`).values = [
+    ["Demand Region", "Baseline Lead Days", "Recommended Lead Days"],
+    ...leadByRegion.map((row) => [
+      row.demand_region,
+      row.baseline_avg_lead_days,
+      row.recommended_avg_lead_days,
+    ]),
+  ];
+  formatSubheader(placementSheet.getRange("O4:Q4"));
+  const leadChart = placementSheet.charts.add("bar", placementSheet.getRange(`O4:Q${leadByRegion.length + 4}`));
+  leadChart.setPosition("O8", "W24");
+  leadChart.title = "Lead-Time Comparison by Region";
+  leadChart.hasLegend = true;
+  leadChart.barOptions.direction = "column";
+  leadChart.barOptions.grouping = "clustered";
+  leadChart.xAxis = { axisType: "textAxis" };
+  leadChart.yAxis = { numberFormatCode: "0.00" };
+  placementSheet.getRange(`O28:Q${riskSegments.length + 28}`).values = [
+    ["Segment", "Baseline Risk", "Recommended Risk"],
+    ...riskSegments.map((row) => [
+      row.label,
+      row.baseline_stockout_risk,
+      row.recommended_stockout_risk,
+    ]),
+  ];
+  formatSubheader(placementSheet.getRange("O28:Q28"));
+  const riskChart = placementSheet.charts.add("bar", placementSheet.getRange(`O28:Q${riskSegments.length + 28}`));
+  riskChart.setPosition("O32", "W48");
+  riskChart.title = "Top Baseline Stockout-Risk Segments";
+  riskChart.hasLegend = true;
+  riskChart.barOptions.direction = "column";
+  riskChart.barOptions.grouping = "clustered";
+  riskChart.xAxis = { axisType: "textAxis" };
+  riskChart.yAxis = { numberFormatCode: "0.00%" };
 
   setTitle(
     inventorySheet,
@@ -342,6 +515,18 @@ async function main() {
   });
   inventorySheet.freezePanes.freezeRows(4);
   inventorySheet.tables.add(`A4:G${inventoryMatrix.length + 3}`, true, "InventoryTable");
+  inventorySheet.getRange(`J4:K${surplusByNode.length + 4}`).values = [
+    ["Warehouse Region", "Surplus Units"],
+    ...surplusByNode.map((row) => [row.warehouse_region, row.surplus_units]),
+  ];
+  formatSubheader(inventorySheet.getRange("J4:K4"));
+  const surplusChart = inventorySheet.charts.add("bar", inventorySheet.getRange(`J4:K${surplusByNode.length + 4}`));
+  surplusChart.setPosition("J8", "Q24");
+  surplusChart.title = "Inventory Surplus by Node";
+  surplusChart.hasLegend = false;
+  surplusChart.barOptions.direction = "column";
+  surplusChart.xAxis = { axisType: "textAxis" };
+  surplusChart.yAxis = { numberFormatCode: "#,##0" };
 
   setTitle(kpiSheet, "KPI Glossary", "Reference metrics requested in the project template.");
   const kpiMatrix = [
@@ -375,10 +560,10 @@ async function main() {
 
   const inspection = await workbook.inspect({
     kind: "table",
-    range: "Dashboard!A1:F17",
+    range: "Dashboard!A1:X36",
     include: "values",
     tableMaxRows: 20,
-    tableMaxCols: 8,
+    tableMaxCols: 24,
   });
   console.log(inspection.ndjson);
   const errorScan = await workbook.inspect({
@@ -388,7 +573,9 @@ async function main() {
     summary: "final formula error scan",
   });
   console.log(errorScan.ndjson);
-  await workbook.render({ sheetName: "Dashboard", range: "A1:P36", scale: 1.2 });
+  await workbook.render({ sheetName: "Dashboard", range: "A1:X36", scale: 1.1 });
+  await workbook.render({ sheetName: "Placement", range: "A1:W48", scale: 1.0 });
+  await workbook.render({ sheetName: "Inventory", range: "A1:Q24", scale: 1.0 });
 
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
   const xlsx = await SpreadsheetFile.exportXlsx(workbook);
